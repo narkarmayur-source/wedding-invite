@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Wedding Celebration | Aarav & Kavya</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,14 +39,9 @@
     .envelope-opened {
       transform: rotateX(180deg);
     }
-
-    /* Subtle shimmer overlay for cards */
-    .gold-border-gradient {
-      border-image: var(--gold-border) 1;
-    }
   </style>
 </head>
-<body class="bg-[#0B1510] text-[#2C2420] font-sans-clean antialiased selection:bg-[#D4AF37]/30">
+<body class="bg-[#FAF7F2] sm:bg-[#0B1510] text-[#2C2420] font-sans-clean antialiased selection:bg-[#D4AF37]/30 min-h-screen">
 
   <!-- Background Music Element -->
   <audio id="bgMusic" loop preload="auto">
@@ -54,16 +49,16 @@
   </audio>
 
   <!-- ================= 3D ENVELOPE OPENING OVERLAY ================= -->
-  <div id="envelopeOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-[#070D0A] px-4 perspective-container">
-    <div class="relative w-80 h-[28rem] preserve-3d flex flex-col items-center justify-center">
+  <div id="envelopeOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-[#0B1510] px-4 perspective-container">
+    <div class="relative w-full max-w-[340px] sm:max-w-sm h-[75vh] max-h-[540px] preserve-3d flex flex-col items-center justify-center">
       
       <!-- Envelope Back / Inner Liner -->
-      <div class="absolute inset-0 bg-[#0E1E16] rounded-3xl border border-[#D4AF37]/30 shadow-[0_25px_60px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col items-center justify-center p-8 text-center">
+      <div class="absolute inset-0 bg-[#0E1E16] rounded-3xl border border-[#D4AF37]/30 shadow-[0_25px_60px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col items-center justify-center p-6 text-center">
         <!-- Traditional Gold Mandala Watermark -->
         <div class="absolute w-72 h-72 rounded-full border border-[#D4AF37]/10 opacity-30 animate-pulse pointer-events-none"></div>
 
         <div class="relative z-10 space-y-4">
-          <span class="text-4xl text-[#E8C574] inline-block font-serif-luxury">॥ श्री गणेशाय नमः ॥</span>
+          <span class="text-3xl sm:text-4xl text-[#E8C574] inline-block font-serif-luxury">॥ श्री गणेशाय नमः ॥</span>
           <p class="font-sans-clean text-[10px] tracking-[0.3em] uppercase text-[#E8C574]/80">Wedding Invitation</p>
           <h2 class="font-script text-5xl text-[#F9F6F0] leading-none">Aarav &amp; Kavya</h2>
           <p class="font-serif-luxury text-sm italic text-[#D1D8D4]">Request the honor of your presence</p>
@@ -79,13 +74,13 @@
       </div>
 
       <!-- 3D Top Flap -->
-      <div id="envelopeLid" class="envelope-lid absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-[#162D21] to-[#0E1E16] rounded-t-3xl border-b border-[#D4AF37]/40 [clip-path:polygon(0_0,100%_0,50%_100%)] z-20 pointer-events-none"></div>
+      <div id="envelopeLid" class="envelope-lid absolute top-0 left-0 right-0 h-44 bg-gradient-to-b from-[#162D21] to-[#0E1E16] rounded-t-3xl border-b border-[#D4AF37]/40 [clip-path:polygon(0_0,100%_0,50%_100%)] z-20 pointer-events-none"></div>
     </div>
   </div>
 
   <!-- ================= FLOATING GLASS AUDIO PILL ================= -->
   <div id="musicControl" class="fixed bottom-6 right-6 z-40 hidden">
-    <button id="musicToggle" class="flex items-center gap-3 px-4 py-2.5 rounded-full bg-[#0E1E16]/80 backdrop-blur-md border border-[#D4AF37]/40 text-[#FAF7F2] shadow-2xl hover:border-[#D4AF37] transition-all">
+    <button id="musicToggle" class="flex items-center gap-3 px-4 py-2.5 rounded-full bg-[#0E1E16]/85 backdrop-blur-md border border-[#D4AF37]/40 text-[#FAF7F2] shadow-2xl hover:border-[#D4AF37] transition-all">
       <div class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></div>
       <span class="text-[11px] font-medium tracking-wider uppercase">Music</span>
       <svg id="musicIcon" class="w-4 h-4 fill-current text-[#D4AF37]" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
@@ -93,22 +88,22 @@
   </div>
 
   <!-- ================= MAIN INVITATION CONTAINER ================= -->
-  <main class="w-full max-w-lg mx-auto min-h-screen bg-[#FAF7F2] relative shadow-[0_0_80px_rgba(0,0,0,0.5)] overflow-hidden border-x border-[#E3DAC9]">
+  <main class="w-full sm:max-w-md md:max-w-lg mx-auto min-h-screen bg-[#FAF7F2] relative shadow-2xl overflow-hidden border-x-0 sm:border-x border-[#E3DAC9]">
     
-    <!-- Subtle architectural arch motif background -->
+    <!-- Arch Motif Ambient Gradient -->
     <div class="absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-[#EFEAE1] to-transparent pointer-events-none"></div>
 
     <!-- Hero Header -->
-    <section class="relative pt-16 pb-12 px-6 text-center">
-      <div class="inline-block px-4 py-1 rounded-full border border-[#D4AF37]/40 bg-white/60 backdrop-blur-sm text-[11px] font-medium tracking-[0.25em] text-[#7A5A29] uppercase mb-4">
+    <section class="relative pt-12 sm:pt-16 pb-10 px-5 text-center">
+      <div class="inline-block px-4 py-1 rounded-full border border-[#D4AF37]/40 bg-white/70 backdrop-blur-sm text-[11px] font-medium tracking-[0.25em] text-[#7A5A29] uppercase mb-4">
         Shubh Vivaah
       </div>
 
       <p class="font-serif-luxury text-sm italic text-[#59504B] tracking-wider mb-2">With the heavenly blessings of our ancestors</p>
       
       <!-- Arch Portal Couple Portrait -->
-      <div class="perspective-container my-8">
-        <div class="tilt-card relative w-64 h-96 mx-auto rounded-t-[7rem] rounded-b-3xl overflow-hidden shadow-[0_20px_40px_rgba(40,30,20,0.15)] border-4 border-white">
+      <div class="perspective-container my-6">
+        <div class="tilt-card relative w-full max-w-[280px] h-[380px] mx-auto rounded-t-[7rem] rounded-b-3xl overflow-hidden shadow-[0_20px_40px_rgba(40,30,20,0.15)] border-4 border-white">
           <img 
             src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80" 
             alt="Couple" 
@@ -121,7 +116,7 @@
         </div>
       </div>
 
-      <h1 class="font-serif-luxury text-4xl sm:text-5xl font-bold text-[#142B1F] tracking-wide mt-4">
+      <h1 class="font-serif-luxury text-4xl sm:text-5xl font-bold text-[#142B1F] tracking-wide mt-2">
         Aarav <span class="font-script font-normal text-5xl text-[#AA771C]">&amp;</span> Kavya
       </h1>
       <p class="font-sans-clean text-xs font-semibold tracking-[0.25em] text-[#7A5A29] mt-2 uppercase">#AaravGotHisKavya</p>
@@ -134,24 +129,24 @@
     </section>
 
     <!-- 3D Countdown Blocks -->
-    <section class="py-8 px-6">
-      <div class="bg-white/80 backdrop-blur-md rounded-3xl p-6 border border-[#E8DFC8] shadow-[0_10px_30px_rgba(0,0,0,0.03)] text-center">
-        <h3 class="font-serif-luxury italic text-2xl text-[#142B1F] mb-6">Counting Down to the Auspicious Moment</h3>
-        <div class="grid grid-cols-4 gap-3">
-          <div class="p-3 rounded-2xl bg-[#0E1E16] text-[#FAF7F2] shadow-inner">
-            <span id="days" class="block font-serif-luxury text-2xl font-bold text-[#E8C574]">00</span>
+    <section class="py-6 px-4 sm:px-6">
+      <div class="bg-white/90 backdrop-blur-md rounded-3xl p-5 sm:p-6 border border-[#E8DFC8] shadow-[0_10px_30px_rgba(0,0,0,0.03)] text-center">
+        <h3 class="font-serif-luxury italic text-xl sm:text-2xl text-[#142B1F] mb-5">Counting Down to the Auspicious Moment</h3>
+        <div class="grid grid-cols-4 gap-2 sm:gap-3">
+          <div class="p-2.5 sm:p-3 rounded-2xl bg-[#0E1E16] text-[#FAF7F2] shadow-inner">
+            <span id="days" class="block font-serif-luxury text-xl sm:text-2xl font-bold text-[#E8C574]">00</span>
             <span class="text-[9px] uppercase tracking-wider text-emerald-100/70 font-sans-clean">Days</span>
           </div>
-          <div class="p-3 rounded-2xl bg-[#0E1E16] text-[#FAF7F2] shadow-inner">
-            <span id="hours" class="block font-serif-luxury text-2xl font-bold text-[#E8C574]">00</span>
+          <div class="p-2.5 sm:p-3 rounded-2xl bg-[#0E1E16] text-[#FAF7F2] shadow-inner">
+            <span id="hours" class="block font-serif-luxury text-xl sm:text-2xl font-bold text-[#E8C574]">00</span>
             <span class="text-[9px] uppercase tracking-wider text-emerald-100/70 font-sans-clean">Hours</span>
           </div>
-          <div class="p-3 rounded-2xl bg-[#0E1E16] text-[#FAF7F2] shadow-inner">
-            <span id="minutes" class="block font-serif-luxury text-2xl font-bold text-[#E8C574]">00</span>
+          <div class="p-2.5 sm:p-3 rounded-2xl bg-[#0E1E16] text-[#FAF7F2] shadow-inner">
+            <span id="minutes" class="block font-serif-luxury text-xl sm:text-2xl font-bold text-[#E8C574]">00</span>
             <span class="text-[9px] uppercase tracking-wider text-emerald-100/70 font-sans-clean">Mins</span>
           </div>
-          <div class="p-3 rounded-2xl bg-[#0E1E16] text-[#FAF7F2] shadow-inner">
-            <span id="seconds" class="block font-serif-luxury text-2xl font-bold text-[#E8C574]">00</span>
+          <div class="p-2.5 sm:p-3 rounded-2xl bg-[#0E1E16] text-[#FAF7F2] shadow-inner">
+            <span id="seconds" class="block font-serif-luxury text-xl sm:text-2xl font-bold text-[#E8C574]">00</span>
             <span class="text-[9px] uppercase tracking-wider text-emerald-100/70 font-sans-clean">Secs</span>
           </div>
         </div>
@@ -159,14 +154,14 @@
     </section>
 
     <!-- 3D Interactive Event Timeline -->
-    <section class="py-10 px-6 space-y-8 perspective-container">
+    <section class="py-8 px-4 sm:px-6 space-y-6 perspective-container">
       <div class="text-center space-y-1">
         <p class="text-[10px] tracking-[0.3em] uppercase text-[#7A5A29] font-medium">Schedule of Events</p>
         <h2 class="font-serif-luxury text-3xl font-bold text-[#142B1F]">Sacred Celebrations</h2>
       </div>
 
-      <!-- Haldi Card (Interactive 3D Tilt) -->
-      <div class="tilt-card relative bg-white rounded-3xl p-6 border border-[#EAD8CD] shadow-[0_15px_35px_rgba(0,0,0,0.04)] preserve-3d">
+      <!-- Haldi Card -->
+      <div class="tilt-card relative bg-white rounded-3xl p-5 sm:p-6 border border-[#EAD8CD] shadow-[0_15px_35px_rgba(0,0,0,0.04)] preserve-3d">
         <div class="translate-z-badge flex items-center justify-between border-b border-gray-100 pb-3 mb-4">
           <span class="text-xs font-semibold tracking-wider text-amber-700 uppercase bg-amber-50 px-3 py-1 rounded-full">Haldi Utsav</span>
           <span class="font-serif-luxury text-sm font-bold text-[#142B1F]">10:00 AM</span>
@@ -187,7 +182,7 @@
       </div>
 
       <!-- Sangeet Card -->
-      <div class="tilt-card relative bg-white rounded-3xl p-6 border border-[#EAD8CD] shadow-[0_15px_35px_rgba(0,0,0,0.04)] preserve-3d">
+      <div class="tilt-card relative bg-white rounded-3xl p-5 sm:p-6 border border-[#EAD8CD] shadow-[0_15px_35px_rgba(0,0,0,0.04)] preserve-3d">
         <div class="translate-z-badge flex items-center justify-between border-b border-gray-100 pb-3 mb-4">
           <span class="text-xs font-semibold tracking-wider text-rose-700 uppercase bg-rose-50 px-3 py-1 rounded-full">Sangeet &amp; Cocktail</span>
           <span class="font-serif-luxury text-sm font-bold text-[#142B1F]">07:00 PM</span>
@@ -207,14 +202,14 @@
         </div>
       </div>
 
-      <!-- Wedding Card (Emphasized) -->
-      <div class="tilt-card relative bg-gradient-to-br from-[#12241A] to-[#0A1610] text-[#FAF7F2] rounded-3xl p-7 border border-[#D4AF37]/50 shadow-[0_20px_45px_rgba(10,22,16,0.3)] preserve-3d">
+      <!-- Wedding Card -->
+      <div class="tilt-card relative bg-gradient-to-br from-[#12241A] to-[#0A1610] text-[#FAF7F2] rounded-3xl p-6 sm:p-7 border border-[#D4AF37]/50 shadow-[0_20px_45px_rgba(10,22,16,0.3)] preserve-3d">
         <div class="translate-z-badge flex items-center justify-between border-b border-white/10 pb-3 mb-4">
           <span class="text-[11px] font-semibold tracking-wider text-[#E8C574] uppercase bg-white/5 border border-[#D4AF37]/30 px-3 py-1 rounded-full">The Muhurat</span>
           <span class="font-serif-luxury text-sm font-bold text-[#E8C574]">11:00 AM</span>
         </div>
         <div class="translate-z-card space-y-2">
-          <h4 class="font-serif-luxury text-3xl font-bold text-white">The Wedding Vows</h4>
+          <h4 class="font-serif-luxury text-2xl sm:text-3xl font-bold text-white">The Wedding Vows</h4>
           <p class="text-xs text-emerald-100/70 font-sans-clean">1st December 2026</p>
           <p class="text-xs text-[#FAF7F2] opacity-90">Royal Palms Resort &amp; Lawns, Mumbai</p>
           <div class="pt-4">
@@ -231,7 +226,7 @@
     </section>
 
     <!-- Embedded YouTube Film -->
-    <section class="py-12 px-6 bg-[#F4EFE6] border-y border-[#E8DFC8]">
+    <section class="py-10 px-4 sm:px-6 bg-[#F4EFE6] border-y border-[#E8DFC8]">
       <div class="text-center mb-6">
         <p class="text-[10px] tracking-[0.3em] uppercase text-[#7A5A29] font-medium">Visual Chronicle</p>
         <h3 class="font-serif-luxury text-3xl font-bold text-[#142B1F]">Our Journey</h3>
@@ -248,7 +243,7 @@
     </section>
 
     <!-- RSVP Section -->
-    <section class="py-14 px-6 text-center">
+    <section class="py-12 px-4 sm:px-6 text-center">
       <div class="space-y-4">
         <h3 class="font-serif-luxury text-3xl font-bold text-[#142B1F]">We Await Your Presence</h3>
         <p class="font-sans-clean text-xs text-[#59504B] max-w-xs mx-auto leading-relaxed">
@@ -302,14 +297,14 @@
       }
     });
 
-    // 3. Smooth 3D Card Tilt Engine (Mobile Touch + Desktop Cursor)
+    // 3. Smooth 3D Card Tilt Engine
     const cards = document.querySelectorAll('.tilt-card');
 
     cards.forEach(card => {
       const handleMove = (x, y, rect) => {
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-        const rotateX = -((y - centerY) / (rect.height / 2)) * 8; // max 8 deg
+        const rotateX = -((y - centerY) / (rect.height / 2)) * 8;
         const rotateY = ((x - centerX) / (rect.width / 2)) * 8;
 
         card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.01, 1.01, 1.01)`;
