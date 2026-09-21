@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wedding Celebration | Aarav & Kavya</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #F3E5AB 50%, #AA771C 100%);
+      --gold-border: linear-gradient(135deg, rgba(212,175,55,0.6), rgba(243,229,171,0.2), rgba(170,119,28,0.6));
+    }
+    .font-serif-luxury { font-family: 'Cormorant Garamond', serif; }
+    .font-script { font-family: 'Pinyon Script', cursive; }
+    .font-sans-clean { font-family: 'Montserrat', sans-serif; }
+
+    /* 3D Depth Engine */
+    .perspective-container { perspective: 1200px; }
+    .preserve-3d { transform-style: preserve-3d; }
+    
+    .tilt-card {
+      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    
+    .translate-z-card { transform: translateZ(28px); }
+    .translate-z-badge { transform: translateZ(42px); }
+
+    /* Envelope 3D fold */
+    .envelope-lid {
+      transform-origin: top center;
+      transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .envelope-opened {
+      transform: rotateX(180deg);
+    }
+
+    /* Subtle shimmer overlay for cards */
+    .gold-border-gradient {
+      border-image: var(--gold-border) 1;
+    }
+  </style>
+</head>
+<body class="bg-[#0B1510] text-[#2C2420] font-sans-clean antialiased selection:bg-[#D4AF37]/30">
+
+  <!-- Background Music Element -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=flute-traditional-indian-instrument-112194.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- ================= 3D ENVELOPE OPENING OVERLAY ================= -->
+  <div id="envelopeOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-[#070D0A] px-4 perspective-container">
+    <div class="relative w-80 h-[28rem] preserve-3d flex flex-col items-center justify-center">
+      
+      <!-- Envelope Back / Inner Liner -->
+      <div class="absolute inset-0 bg-[#0E1E16] rounded-3xl border border-[#D4AF37]/30 shadow-[0_25px_60px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col items-center justify-center p-8 text-center">
+        <!-- Traditional Gold Mandala Watermark -->
+        <div class="absolute w-72 h-72 rounded-full border border-[#D4AF37]/10 opacity-30 animate-pulse pointer-events-none"></div>
+
+        <div class="relative z-10 space-y-4">
+          <span class="text-4xl text-[#E8C574] inline-block font-serif-luxury">॥ श्री गणेशाय नमः ॥</span>
+          <p class="font-sans-clean text-[10px] tracking-[0.3em] uppercase text-[#E8C574]/80">Wedding Invitation</p>
+          <h2 class="font-script text-5xl text-[#F9F6F0] leading-none">Aarav &amp; Kavya</h2>
+          <p class="font-serif-luxury text-sm italic text-[#D1D8D4]">Request the honor of your presence</p>
+        </div>
+
+        <!-- 3D Wax Seal Button -->
+        <button id="waxSealBtn" class="mt-8 relative group w-20 h-20 rounded-full bg-gradient-to-br from-[#AA771C] via-[#D4AF37] to-[#8C6212] p-[2px] shadow-[0_10px_25px_rgba(212,175,55,0.4)] hover:scale-105 active:scale-95 transition-all">
+          <div class="w-full h-full rounded-full bg-[#12231A] flex flex-col items-center justify-center border border-[#E8C574]/40">
+            <span class="text-xs font-serif-luxury tracking-widest text-[#E8C574] font-bold">UNVEIL</span>
+            <span class="text-[9px] text-[#E8C574]/60">INVITATION</span>
+          </div>
+        </button>
+      </div>
+
+      <!-- 3D Top Flap -->
+      <div id="envelopeLid" class="envelope-lid absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-[#162D21] to-[#0E1E16] rounded-t-3xl border-b border-[#D4AF37]/40 [clip-path:polygon(0_0,100%_0,50%_100%)] z-20 pointer-events-none"></div>
+    </div>
+  </div>
+
+  <!-- ================= FLOATING GLASS AUDIO PILL ================= -->
+  <div id="musicControl" class="fixed bottom-6 right-6 z-40 hidden">
+    <button id="musicToggle" class="flex items-center gap-3 px-4 py-2.5 rounded-full bg-[#0E1E16]/80 backdrop-blur-md border border-[#D4AF37]/40 text-[#FAF7F2] shadow-2xl hover:border-[#D4AF37] transition-all">
+      <div class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></div>
+      <span class="text-[11px] font-medium tracking-wider uppercase">Music</span>
+      <svg id="musicIcon" class="w-4 h-4 fill-current text-[#D4AF37]" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+    </button>
+  </div>
+
+  <!-- ================= MAIN INVITATION CONTAINER ================= -->
+  <main class="w-full max-w-lg mx-auto min-h-screen bg-[#FAF7F2] relative shadow-[0_0_80px_rgba(0,0,0,0.5)] overflow-hidden border-x border-[#E3DAC9]">
+    
+    <!-- Subtle architectural arch motif background -->
+    <div class="absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-[#EFEAE1] to-transparent pointer-events-none"></div>
+
+    <!-- Hero Header -->
+    <section class="relative pt-16 pb-12 px-6 text-center">
+      <div class="inline-block px-4 py-1 rounded-full border border-[#D4AF37]/40 bg-white/60 backdrop-blur-sm text-[11px] font-medium tracking-[0.25em] text-[#7A5A29] uppercase mb-4">
+        Shubh Vivaah
+      </div>
+
+      <p class="font-serif-luxury text-sm italic text-[#59504B] tracking-wider mb-2">With the heavenly blessings of our ancestors</p>
+      
+      <!-- Arch Portal Couple Portrait -->
+      <div class="perspective-container my-8">
+        <div class="tilt-card relative w-64 h-96 mx-auto rounded-t-[7rem] rounded-b-3xl overflow-hidden shadow-[0_20px_40px_rgba(40,30,20,0.15)] border-4 border-white">
+          <img 
+            src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80" 
+            alt="Couple" 
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+          <div class="absolute bottom-4 inset-x-0 text-center text-white translate-z-badge">
+            <span class="font-sans-clean text-[10px] tracking-[0.3em] uppercase opacity-90">Together Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <h1 class="font-serif-luxury text-4xl sm:text-5xl font-bold text-[#142B1F] tracking-wide mt-4">
+        Aarav <span class="font-script font-normal text-5xl text-[#AA771C]">&amp;</span> Kavya
+      </h1>
+      <p class="font-sans-clean text-xs font-semibold tracking-[0.25em] text-[#7A5A29] mt-2 uppercase">#AaravGotHisKavya</p>
+      
+      <div class="mt-8 flex items-center justify-center gap-4 text-[#8C6212]">
+        <span class="h-[1px] w-12 bg-[#D4AF37]/40"></span>
+        <span class="font-serif-luxury text-lg tracking-widest uppercase font-semibold">01 . 12 . 2026</span>
+        <span class="h-[1px] w-12 bg-[#D4AF37]/40"></span>
+      </div>
+    </section>
+
+    <!-- 3D Countdown Blocks -->
+    <section class="py-8 px-6">
+      <div class="bg-white/80 backdrop-blur-md rounded-3xl p-6 border border-[#E8DFC8] shadow-[0_10px_30px_rgba(0,0,0,0.03)] text-center">
+        <h3 class="font-serif-luxury italic text-2xl text-[#142B1F] mb-6">Counting Down to the Auspicious Moment</h3>
+        <div class="grid grid-cols-4 gap-3">
+          <div class="p-3 rounded-2xl bg-[#0E1E16] text-[#FAF7F2] shadow-inner">
+            <span id="days" class="block font-serif-luxury text-2xl font-bold text-[#E8C574]">00</span>
+            <span class="text-[9px] uppercase tracking-wider text-emerald-100/70 font-sans-clean">Days</span>
+          </div>
+          <div class="p-3 rounded-2xl bg-[#0E1E16] text-[#FAF7F2] shadow-inner">
+            <span id="hours" class="block font-serif-luxury text-2xl font-bold text-[#E8C574]">00</span>
+            <span class="text-[9px] uppercase tracking-wider text-emerald-100/70 font-sans-clean">Hours</span>
+          </div>
+          <div class="p-3 rounded-2xl bg-[#0E1E16] text-[#FAF7F2] shadow-inner">
+            <span id="minutes" class="block font-serif-luxury text-2xl font-bold text-[#E8C574]">00</span>
+            <span class="text-[9px] uppercase tracking-wider text-emerald-100/70 font-sans-clean">Mins</span>
+          </div>
+          <div class="p-3 rounded-2xl bg-[#0E1E16] text-[#FAF7F2] shadow-inner">
+            <span id="seconds" class="block font-serif-luxury text-2xl font-bold text-[#E8C574]">00</span>
+            <span class="text-[9px] uppercase tracking-wider text-emerald-100/70 font-sans-clean">Secs</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3D Interactive Event Timeline -->
+    <section class="py-10 px-6 space-y-8 perspective-container">
+      <div class="text-center space-y-1">
+        <p class="text-[10px] tracking-[0.3em] uppercase text-[#7A5A29] font-medium">Schedule of Events</p>
+        <h2 class="font-serif-luxury text-3xl font-bold text-[#142B1F]">Sacred Celebrations</h2>
+      </div>
+
+      <!-- Haldi Card (Interactive 3D Tilt) -->
+      <div class="tilt-card relative bg-white rounded-3xl p-6 border border-[#EAD8CD] shadow-[0_15px_35px_rgba(0,0,0,0.04)] preserve-3d">
+        <div class="translate-z-badge flex items-center justify-between border-b border-gray-100 pb-3 mb-4">
+          <span class="text-xs font-semibold tracking-wider text-amber-700 uppercase bg-amber-50 px-3 py-1 rounded-full">Haldi Utsav</span>
+          <span class="font-serif-luxury text-sm font-bold text-[#142B1F]">10:00 AM</span>
+        </div>
+        <div class="translate-z-card space-y-2">
+          <h4 class="font-serif-luxury text-2xl font-bold text-[#142B1F]">Sunlit Blessings</h4>
+          <p class="text-xs text-[#6B5E55] font-sans-clean">29th November 2026</p>
+          <p class="text-xs font-medium text-[#2C2420]">The Courtyard, Hotel Grand Palace, Mumbai</p>
+          <a 
+            href="https://maps.google.com/?q=Hotel+Grand+Palace+Mumbai" 
+            target="_blank" 
+            class="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-[#AA771C] hover:text-[#8C6212] transition-colors"
+          >
+            <span>Get Directions</span>
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path d="M10 0C6.14 0 3 3.14 3 7c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Sangeet Card -->
+      <div class="tilt-card relative bg-white rounded-3xl p-6 border border-[#EAD8CD] shadow-[0_15px_35px_rgba(0,0,0,0.04)] preserve-3d">
+        <div class="translate-z-badge flex items-center justify-between border-b border-gray-100 pb-3 mb-4">
+          <span class="text-xs font-semibold tracking-wider text-rose-700 uppercase bg-rose-50 px-3 py-1 rounded-full">Sangeet &amp; Cocktail</span>
+          <span class="font-serif-luxury text-sm font-bold text-[#142B1F]">07:00 PM</span>
+        </div>
+        <div class="translate-z-card space-y-2">
+          <h4 class="font-serif-luxury text-2xl font-bold text-[#142B1F]">Musical Reverie</h4>
+          <p class="text-xs text-[#6B5E55] font-sans-clean">30th November 2026</p>
+          <p class="text-xs font-medium text-[#2C2420]">Imperial Ballroom, Hotel Grand Palace</p>
+          <a 
+            href="https://maps.google.com/?q=Hotel+Grand+Palace+Mumbai" 
+            target="_blank" 
+            class="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-[#AA771C] hover:text-[#8C6212] transition-colors"
+          >
+            <span>Get Directions</span>
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path d="M10 0C6.14 0 3 3.14 3 7c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Wedding Card (Emphasized) -->
+      <div class="tilt-card relative bg-gradient-to-br from-[#12241A] to-[#0A1610] text-[#FAF7F2] rounded-3xl p-7 border border-[#D4AF37]/50 shadow-[0_20px_45px_rgba(10,22,16,0.3)] preserve-3d">
+        <div class="translate-z-badge flex items-center justify-between border-b border-white/10 pb-3 mb-4">
+          <span class="text-[11px] font-semibold tracking-wider text-[#E8C574] uppercase bg-white/5 border border-[#D4AF37]/30 px-3 py-1 rounded-full">The Muhurat</span>
+          <span class="font-serif-luxury text-sm font-bold text-[#E8C574]">11:00 AM</span>
+        </div>
+        <div class="translate-z-card space-y-2">
+          <h4 class="font-serif-luxury text-3xl font-bold text-white">The Wedding Vows</h4>
+          <p class="text-xs text-emerald-100/70 font-sans-clean">1st December 2026</p>
+          <p class="text-xs text-[#FAF7F2] opacity-90">Royal Palms Resort &amp; Lawns, Mumbai</p>
+          <div class="pt-4">
+            <a 
+              href="https://maps.google.com/?q=Royal+Palms+Resort" 
+              target="_blank" 
+              class="inline-block px-6 py-2.5 rounded-full bg-gradient-to-r from-[#AA771C] via-[#D4AF37] to-[#8C6212] text-[#0A1610] text-xs font-bold tracking-wider uppercase shadow-md hover:brightness-110 transition-all"
+            >
+              Open Venue Map
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Embedded YouTube Film -->
+    <section class="py-12 px-6 bg-[#F4EFE6] border-y border-[#E8DFC8]">
+      <div class="text-center mb-6">
+        <p class="text-[10px] tracking-[0.3em] uppercase text-[#7A5A29] font-medium">Visual Chronicle</p>
+        <h3 class="font-serif-luxury text-3xl font-bold text-[#142B1F]">Our Journey</h3>
+      </div>
+      <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-lg border-2 border-white">
+        <iframe 
+          class="w-full h-full" 
+          src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+          title="Pre-wedding Story" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section class="py-14 px-6 text-center">
+      <div class="space-y-4">
+        <h3 class="font-serif-luxury text-3xl font-bold text-[#142B1F]">We Await Your Presence</h3>
+        <p class="font-sans-clean text-xs text-[#59504B] max-w-xs mx-auto leading-relaxed">
+          Please honor us with your blessings. Kindly confirm your arrival via WhatsApp.
+        </p>
+
+        <div class="pt-4">
+          <a 
+            href="https://wa.me/919876543210?text=Namaste!%20We%20are%20excited%20to%20attend%20the%20wedding." 
+            target="_blank" 
+            class="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-[#142B1F] text-[#FAF7F2] text-xs font-semibold tracking-wider uppercase shadow-xl hover:bg-[#0B1A12] transition-colors border border-[#D4AF37]/40"
+          >
+            Confirm via WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= 3D CARD INTERACTION & AUDIO LOGIC ================= -->
+  <script>
+    const envelopeOverlay = document.getElementById('envelopeOverlay');
+    const envelopeLid = document.getElementById('envelopeLid');
+    const waxSealBtn = document.getElementById('waxSealBtn');
+    const bgMusic = document.getElementById('bgMusic');
+    const musicControl = document.getElementById('musicControl');
+    const musicToggle = document.getElementById('musicToggle');
+
+    // 1. Envelope Unveil & Music Play
+    waxSealBtn.addEventListener('click', () => {
+      bgMusic.play().catch(e => console.log("Audio waiting for trigger:", e));
+      envelopeLid.classList.add('envelope-opened');
+
+      setTimeout(() => {
+        envelopeOverlay.classList.add('opacity-0', 'pointer-events-none', 'transition-opacity', 'duration-700');
+        musicControl.classList.remove('hidden');
+      }, 700);
+
+      setTimeout(() => envelopeOverlay.remove(), 1500);
+    });
+
+    // 2. Music Toggle
+    musicToggle.addEventListener('click', () => {
+      if (bgMusic.paused) {
+        bgMusic.play();
+        musicToggle.classList.remove('opacity-60');
+      } else {
+        bgMusic.pause();
+        musicToggle.classList.add('opacity-60');
+      }
+    });
+
+    // 3. Smooth 3D Card Tilt Engine (Mobile Touch + Desktop Cursor)
+    const cards = document.querySelectorAll('.tilt-card');
+
+    cards.forEach(card => {
+      const handleMove = (x, y, rect) => {
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const rotateX = -((y - centerY) / (rect.height / 2)) * 8; // max 8 deg
+        const rotateY = ((x - centerX) / (rect.width / 2)) * 8;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.01, 1.01, 1.01)`;
+      };
+
+      card.addEventListener('mousemove', (e) => {
+        handleMove(e.clientX, e.clientY, card.getBoundingClientRect());
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
+    });
+
+    // 4. Live Countdown
+    const targetDate = new Date("December 1, 2026 11:00:00").getTime();
+    function renderCountdown() {
+      const diff = targetDate - new Date().getTime();
+      if (diff <= 0) return;
+
+      document.getElementById("days").innerText = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+      document.getElementById("hours").innerText = String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, '0');
+      document.getElementById("minutes").innerText = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, '0');
+      document.getElementById("seconds").innerText = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
+    }
+    setInterval(renderCountdown, 1000);
+    renderCountdown();
+  </script>
+</body>
+</html>
